@@ -390,15 +390,96 @@ promise.then(function(){
       
         <hr>
 <p>#一道小小的微信面试题</p>
-<h2 id="–消息队列与异步编程"><a href="#–消息队列与异步编程" class="headerlink" title="–消息队列与异步编程"></a>–消息队列与异步编程</h2><p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+<h3 id="消息队列与异步编程"><a href="#消息队列与异步编程" class="headerlink" title="消息队列与异步编程"></a>消息队列与异步编程</h3><hr>
+<p>JavaScript异步编程大致有四种方式：  </p>
+<blockquote>
+<ol>
+<li>回调函数  </li>
+<li>时间监听  </li>
+<li>发布/订阅（观察者模式）  </li>
+<li>Promise对象</li>
+</ol>
+</blockquote>
+<h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><blockquote>
+<p>实现一个LazyMan，可以按照以下方式调用:<br>LazyMan(“Hank”)输出:<br>Hi! This is Hank!</p>
+<p>LazyMan(“Hank”).sleep(10).eat(“dinner”)输出<br>Hi! This is Hank!<br>//等待10秒..<br>Wake up after 10<br>Eat dinner~</p>
+<p>LazyMan(“Hank”).eat(“dinner”).eat(“supper”)输出<br>Hi This is Hank!<br>Eat dinner~<br>Eat supper~</p>
+<p>LazyMan(“Hank”).sleepFirst(5).eat(“supper”)输出<br>//等待5秒<br>Wake up after 5<br>Hi This is Hank!<br>Eat supper<br>以此类推。</p>
+</blockquote>
+<h3 id="基本做法"><a href="#基本做法" class="headerlink" title="基本做法"></a>基本做法</h3><p>使用队列+next。 </p>
+<pre><code>function createWaitPromise(second) {
+    return new Promise(function (resolve, reject) {
+        setTimeout(function () {
+            resolve(&apos;Wake up after &apos; + second);
+        }, second * 1000);
+    });
+}
+
+function LazyMan(name) {
+    var p = new Promise(function (resolve, reject) {
+        resolve(&apos;Hi! This is &apos; + name + &apos;!&apos;);
+    });
+
+    return {
+        sleep: function (second) {
+            p = p.then(function (msg) {
+                console.log(msg);
+                return createWaitPromise(second);
+            });
+            return this;
+        },
+        sleepFirst: function (second) {
+            var op = p;
+            p = createWaitPromise(second).then(function (msg) {
+                console.log(msg);
+                return op;
+            });
+            return this;
+        },
+        eat: function (part) {
+            var pn = new Promise(function (resolve) {
+                resolve(&apos;Eat &apos; + part + &apos;~&apos;);
+            });
+            p = p.then(function (msg) {
+                console.log(msg);
+                return pn;
+            });
+            return this;
+        },
+        print: function () {
+            return p.then(function (msg) {
+                console.log(msg);
+            });
+        }
+    };
+}
+
+module.exports = LazyMan;
+</code></pre><p>测试：</p>
+<pre><code>var LazyMan = require(&apos;./LazyMan&apos;);
+LazyMan(&apos;Hank&apos;).sleepFirst(10).eat(&apos;breadfast&apos;).sleep(5).eat(&apos;lunch&apos;).sleep(10).eat(&apos;dinner&apos;);
+</code></pre><h3 id="一些注意点："><a href="#一些注意点：" class="headerlink" title="一些注意点："></a>一些注意点：</h3><ol>
+<li><p>源程序最后一行为<code>module.exports = LazyMan;</code>时可以这么测试；<br>若最后一行为<code>exports.Lazy = LazyMan;</code>则测试为:  </p>
+<pre><code>var Lazy = require(&apos;./LazyMan&apos;);
+Lazy.LazyMan(&apos;Hanks&apos;).sleep(10).eat(&apos;breadfast&apos;);  
+</code></pre></li>
+<li><p>next()的使用，若任务队列为空，则不作处理；反之会执行函数。  </p>
+<blockquote>
+<p>关于&amp;&amp;和||<br>1&gt;. expr1 &amp;&amp; expr2<br>如果expr1 能转换成false则返回expr1,否则返回expr2. 因此, 在Boolean环境中使用时, 两个操作结果都为true时返回true,否则返回false.<br>2&gt;. expr1 || expr2<br>如果expr1能转换成true则返回expr1,否则返回expr2. 因此,在boolean环境(在if的条件判断中)中使用时, 二者操作结果中只要有一个为true,返回true;二者操作结果都为false时返回false.</p>
+</blockquote>
+</li>
+</ol>
+<p><em>总之，能确定这个逻辑表达式true or false的那一项将作为返回值。</em>  </p>
+<ol>
+<li><p>程序中的下面这句是异步执行的重点，即在最后一句执行完毕后，此时所有任务都已经进入任务队列，进入下一轮Event Loop，触发next().  </p>
+<p> setTimeout(function () {  </p>
+<pre><code>next();  
+</code></pre><p> }, 0);</p>
+</li>
+<li><p>最后return语句中的<code>return this;</code>是为了链式调用。</p>
+</li>
+</ol>
+<p>More info: <a href="http://hushicai.com/2015/05/07/a-frontend-interview-question-of-weixin.html" target="_blank" rel="external">原题</a></p>
 
       
 
