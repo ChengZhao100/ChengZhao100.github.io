@@ -6,19 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Promise的立即执行问题 | Mr.Cheng</title>
+  <title>使用hexo搭建github.io博客 | Mr.Cheng</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Quick Start一道携程笔试题var promise=new Promise(function(resolve,reject){     console.log(1);     setTimeout(function(){         resolve();         console.log(2);     },1000) }); console.log(3); promise.th">
+  <meta name="description" content="Quick Start一、寻找 &amp;amp; 安装到hexo所在的路径下E:hexo,右键打开Git Bash,执行: 1$ git clone https://github.com/litten/hexo-theme-yilia.git themes/yilia 二、使用主题打开_config.yml做如下修改:   theme: yilia 三.更新主题:进入E:hexo/themes/yili">
 <meta name="keywords">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Promise的立即执行问题">
-<meta property="og:url" content="http://yoursite.com/2017/04/13/promise小题总结/index.html">
+<meta property="og:title" content="使用hexo搭建github.io博客">
+<meta property="og:url" content="http://yoursite.com/2017/04/13/hexo更换主题/index.html">
 <meta property="og:site_name" content="Mr.Cheng">
-<meta property="og:description" content="Quick Start一道携程笔试题var promise=new Promise(function(resolve,reject){     console.log(1);     setTimeout(function(){         resolve();         console.log(2);     },1000) }); console.log(3); promise.th">
-<meta property="og:updated_time" content="2017-04-13T07:44:18.763Z">
+<meta property="og:description" content="Quick Start一、寻找 &amp;amp; 安装到hexo所在的路径下E:hexo,右键打开Git Bash,执行: 1$ git clone https://github.com/litten/hexo-theme-yilia.git themes/yilia 二、使用主题打开_config.yml做如下修改:   theme: yilia 三.更新主题:进入E:hexo/themes/yili">
+<meta property="og:updated_time" content="2017-04-13T09:17:44.980Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Promise的立即执行问题">
-<meta name="twitter:description" content="Quick Start一道携程笔试题var promise=new Promise(function(resolve,reject){     console.log(1);     setTimeout(function(){         resolve();         console.log(2);     },1000) }); console.log(3); promise.th">
+<meta name="twitter:title" content="使用hexo搭建github.io博客">
+<meta name="twitter:description" content="Quick Start一、寻找 &amp;amp; 安装到hexo所在的路径下E:hexo,右键打开Git Bash,执行: 1$ git clone https://github.com/litten/hexo-theme-yilia.git themes/yilia 二、使用主题打开_config.yml做如下修改:   theme: yilia 三.更新主题:进入E:hexo/themes/yili">
   
     <link rel="alternative" href="/atom.xml" title="Mr.Cheng" type="application/atom+xml">
   
@@ -154,49 +154,135 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-promise小题总结" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-hexo更换主题" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Promise的立即执行问题
+      使用hexo搭建github.io博客
     </h1>
   
 
         
-        <a href="/2017/04/13/promise小题总结/" class="archive-article-date">
-  	<time datetime="2017-04-13T07:15:13.325Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-13</time>
+        <a href="/2017/04/13/hexo更换主题/" class="archive-article-date">
+  	<time datetime="2017-04-13T09:05:06.439Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-13</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="一道携程笔试题"><a href="#一道携程笔试题" class="headerlink" title="一道携程笔试题"></a>一道携程笔试题</h3><pre><code>var promise=new Promise(function(resolve,reject){
-    console.log(1);
-    setTimeout(function(){
-        resolve();
-        console.log(2);
-    },1000)
-});
-console.log(3);
-promise.then(console.log(4));
-</code></pre><p>上述程序会依次输出1 3 4，然后在等待一秒后输出2.<br><em>这里要注意的地方在于console.log(4)会立即执行，不会等待resolve状态的返回</em></p>
-<h3 id="改造一下"><a href="#改造一下" class="headerlink" title="改造一下"></a>改造一下</h3><pre><code>var promise=new Promise(function(resolve,reject){
-    console.log(1);
-    setTimeout(function(){
-        resolve()
-        console.log(2)
-    },1000)
-});
-console.log(3);
-promise.then(function(){
-    console.log(4)
-});
-</code></pre><p>即是常规promise的用法，结果会输出1 3，然后在等待一秒后输出2 4. </p>
-<p>More info: <a href="http://liubin.org/promises-book/" target="_blank" rel="external">JavaScript Promise迷你书</a></p>
+        <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="一、寻找-amp-安装"><a href="#一、寻找-amp-安装" class="headerlink" title="一、寻找 &amp; 安装"></a>一、寻找 &amp; 安装</h3><p>到hexo所在的路径下<em>E:hexo</em>,右键打开Git Bash,执行:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git clone https://github.com/litten/hexo-theme-yilia.git themes/yilia</div></pre></td></tr></table></figure>
+<h3 id="二、使用主题"><a href="#二、使用主题" class="headerlink" title="二、使用主题"></a>二、使用主题</h3><p>打开_<em>config.yml</em>做如下修改:  </p>
+<pre><code>theme: yilia
+</code></pre><h3 id="三-更新主题"><a href="#三-更新主题" class="headerlink" title="三.更新主题:"></a>三.更新主题:</h3><p>进入<em>E:hexo/themes/yilia</em>,右键打开<em>Git Bash</em>,执行 <em>git pull</em></p>
+<h3 id="四-测试推送"><a href="#四-测试推送" class="headerlink" title="四.测试推送:"></a>四.测试推送:</h3><p>回到<em>E:hexo</em>,执行: <em>hexo generate</em> <em>hexo server</em>, 打开localhost:4000预览,就可以看到新的主题了<br>然后<em>hexo deploy</em>推送到github.io</p>
+<h3 id="五-配置主题"><a href="#五-配置主题" class="headerlink" title="五.配置主题:"></a>五.配置主题:</h3><p>主题配置在<em>E:\hexo\themes\yilia</em>下的_<em>config.yml</em>:<br>我是这样配置的:</p>
+<pre><code># Header
+
+menu:
+  主页: /
+  随笔: /tags/随笔/
+
+# SubNav
+subnav:
+  github: &quot;#&quot;
+  weibo: &quot;#&quot;
+  rss: &quot;#&quot;
+  zhihu: &quot;#&quot;
+  #qq: &quot;#&quot;
+  #weixin: &quot;#&quot;
+  #jianshu: &quot;#&quot;
+  #douban: &quot;#&quot;
+  #segmentfault: &quot;#&quot;
+  #bilibili: &quot;#&quot;
+  #acfun: &quot;#&quot;
+  #mail: &quot;mailto:litten225@qq.com&quot;
+  #facebook: &quot;#&quot;
+  #google: &quot;#&quot;
+  #twitter: &quot;#&quot;
+  #linkedin: &quot;#&quot;
+
+rss: /atom.xml
+
+# 是否需要修改 root 路径
+# 如果您的网站存放在子目录中，例如 http://yoursite.com/blog，
+# 请将您的 url 设为 http://yoursite.com/blog 并把 root 设为 /blog/。
+root: 
+
+# Content
+
+# 文章太长，截断按钮文字
+excerpt_link: more
+# 文章卡片右下角常驻链接，不需要请设置为false
+show_all_link: &apos;展开全文&apos;
+# 数学公式
+mathjax: false
+# 是否在新窗口打开链接
+open_in_new: false
+
+# 打赏
+# 请在需要打赏的文章的md文件头部，设置属性reward: true
+
+# 打赏基础设定：0-关闭打赏； 1-文章对应的md文件里有reward:true属性，才有打赏； 2-所有文章均有打赏
+reward_type: 2
+# 打赏wording
+reward_wording: &apos;谢谢你请我吃糖果&apos;
+# 支付宝二维码图片地址，跟你设置头像的方式一样。比如：/assets/img/alipay.jpg
+alipay: 
+# 微信二维码图片地址
+weixin: 
+
+# Miscellaneous
+baidu_analytics: &apos;&apos;
+google_analytics: &apos;&apos;
+favicon: /favicon.png
+
+#你的头像url
+avatar: &apos;./uploads/a.jpg&apos;
+
+#是否开启分享
+share_jia: true
+
+#是否开启多说评论，填写你在多说申请的项目名称 duoshuo: duoshuo-key
+#若使用disqus，请在博客config文件中填写disqus_shortname，并关闭多说评论
+duoshuo: false
+
+# 样式定制 - 一般不需要修改，除非有很强的定制欲望…
+style:
+  # 头像上面的背景颜色
+  header: &apos;#4d4d4d&apos;
+  # 右滑板块背景
+  slider: &apos;linear-gradient(200deg,#a0cfe4,#e8c37e)&apos;
+
+# slider的设置
+slider:
+  # 是否默认展开tags板块
+  showTags: false
+
+# 智能菜单
+# 如不需要，将该对应项置为false
+# 比如
+#smart_menu:
+#  friends: false
+smart_menu:
+  innerArchive: &apos;所有文章&apos;
+  friends: &apos;友链&apos;
+  aboutme: &apos;关于我&apos;
+
+friends:
+  友情链接1: http://localhost:4000/
+  友情链接2: http://localhost:4000/
+  友情链接3: http://localhost:4000/
+  友情链接4: http://localhost:4000/
+  友情链接5: http://localhost:4000/
+  友情链接6: http://localhost:4000/
+
+aboutme: 很惭愧&lt;br&gt;&lt;br&gt;只做了一点微小的工作&lt;br&gt;谢谢大家
+</code></pre><h3 id="六、发布主题"><a href="#六、发布主题" class="headerlink" title="六、发布主题:"></a>六、发布主题:</h3><p><em>hexo generate</em> <em>hexo deploy</em> 发布到github.io</p>
 
       
 
@@ -276,7 +362,7 @@ promise.then(function(){
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2017/04/13/promise小题总结/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2017/04/13/hexo更换主题/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -290,20 +376,15 @@ promise.then(function(){
   
 <nav id="article-nav">
   
-    <a href="/2017/04/13/一道微信面试题/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/04/13/promise小题总结/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          (no title)
+          Promise的立即执行问题
         
       </div>
     </a>
   
-  
-    <a href="/2017/04/13/hexo更换主题/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">使用hexo搭建github.io博客</div>
-      <i class="icon-circle-right"></i>
-    </a>
   
 </nav>
 
