@@ -835,7 +835,15 @@ module.exports = LazyMan;
 </code></pre><p>测试：</p>
 <pre><code>var LazyMan = require(&apos;./LazyMan&apos;);
 LazyMan(&apos;Hank&apos;).sleepFirst(10).eat(&apos;breadfast&apos;).sleep(5).eat(&apos;lunch&apos;).sleep(10).eat(&apos;dinner&apos;);
-</code></pre><p>运行原理是把每一个任务的信息由下一个任务打印出来，最重要的是传递消息。</p>
+</code></pre><p>运行原理是把每一个任务的信息由下一个任务打印出来，最重要的是传递消息。程序精妙之处在于sleepFirst的编写，第一次写的时候写成下面这个样子：  </p>
+<pre><code>sleepFirst: function(seconds){
+    createWaitPromise(seconds).then(function(msg){
+        console.log(msg);
+    });
+    console.log(p);
+    return this;
+},
+</code></pre><p>则下面的任务不会等待sleepFirst完成再执行，重点是把每一次的任务都绑定到p上. </p>
 <p>More info: <a href="http://hushicai.com/2015/05/07/a-frontend-interview-question-of-weixin.html" target="_blank" rel="external">原题</a></p>
 
           

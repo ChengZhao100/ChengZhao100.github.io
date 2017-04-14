@@ -94,7 +94,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/04/13/一道微信面试题/index.html">
 <meta property="og:site_name" content="Mr.Cheng">
 <meta property="og:description" content="JavaScript异步编程大致有四种方式：     回调函数   时间监听   发布/订阅（观察者模式）   Promise对象   问题描述 实现一个LazyMan，可以按照以下方式调用:LazyMan(“Hank”)输出:Hi! This is Hank! LazyMan(“Hank”).sleep(10).eat(“dinner”)输出Hi! This is Hank!//等待10秒..W">
-<meta property="og:updated_time" content="2017-04-14T08:05:10.897Z">
+<meta property="og:updated_time" content="2017-04-14T12:20:19.741Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="一道小小的微信面试题">
 <meta name="twitter:description" content="JavaScript异步编程大致有四种方式：     回调函数   时间监听   发布/订阅（观察者模式）   Promise对象   问题描述 实现一个LazyMan，可以按照以下方式调用:LazyMan(“Hank”)输出:Hi! This is Hank! LazyMan(“Hank”).sleep(10).eat(“dinner”)输出Hi! This is Hank!//等待10秒..W">
@@ -461,7 +461,15 @@ module.exports = LazyMan;
 </code></pre><p>测试：</p>
 <pre><code>var LazyMan = require(&apos;./LazyMan&apos;);
 LazyMan(&apos;Hank&apos;).sleepFirst(10).eat(&apos;breadfast&apos;).sleep(5).eat(&apos;lunch&apos;).sleep(10).eat(&apos;dinner&apos;);
-</code></pre><p>运行原理是把每一个任务的信息由下一个任务打印出来，最重要的是传递消息。</p>
+</code></pre><p>运行原理是把每一个任务的信息由下一个任务打印出来，最重要的是传递消息。程序精妙之处在于sleepFirst的编写，第一次写的时候写成下面这个样子：  </p>
+<pre><code>sleepFirst: function(seconds){
+    createWaitPromise(seconds).then(function(msg){
+        console.log(msg);
+    });
+    console.log(p);
+    return this;
+},
+</code></pre><p>则下面的任务不会等待sleepFirst完成再执行，重点是把每一次的任务都绑定到p上. </p>
 <p>More info: <a href="http://hushicai.com/2015/05/07/a-frontend-interview-question-of-weixin.html" target="_blank" rel="external">原题</a></p>
 
       
