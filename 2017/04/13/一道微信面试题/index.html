@@ -94,7 +94,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/04/13/一道微信面试题/index.html">
 <meta property="og:site_name" content="Mr.Cheng">
 <meta property="og:description" content="JavaScript异步编程大致有四种方式：     回调函数   时间监听   发布/订阅（观察者模式）   Promise对象   问题描述 实现一个LazyMan，可以按照以下方式调用:LazyMan(“Hank”)输出:Hi! This is Hank! LazyMan(“Hank”).sleep(10).eat(“dinner”)输出Hi! This is Hank!//等待10秒..W">
-<meta property="og:updated_time" content="2017-04-14T04:28:11.281Z">
+<meta property="og:updated_time" content="2017-04-14T08:05:10.897Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="一道小小的微信面试题">
 <meta name="twitter:description" content="JavaScript异步编程大致有四种方式：     回调函数   时间监听   发布/订阅（观察者模式）   Promise对象   问题描述 实现一个LazyMan，可以按照以下方式调用:LazyMan(“Hank”)输出:Hi! This is Hank! LazyMan(“Hank”).sleep(10).eat(“dinner”)输出Hi! This is Hank!//等待10秒..W">
@@ -337,8 +337,80 @@
 <p>LazyMan(“Hank”).eat(“dinner”).eat(“supper”)输出<br>Hi This is Hank!<br>Eat dinner~<br>Eat supper~</p>
 <p>LazyMan(“Hank”).sleepFirst(5).eat(“supper”)输出<br>//等待5秒<br>Wake up after 5<br>Hi This is Hank!<br>Eat supper<br>以此类推。</p>
 </blockquote>
-<h3 id="基本做法"><a href="#基本做法" class="headerlink" title="基本做法"></a>基本做法</h3><p>使用队列+next。 </p>
-<pre><code>function createWaitPromise(second) {
+<h3 id="基本做法"><a href="#基本做法" class="headerlink" title="基本做法"></a>基本做法</h3><p>使用队列+next.  </p>
+<pre><code>function LazyMan(name) {
+    var queue = [];
+    var task = {
+        wait: function (second) {
+            return function () {
+                setTimeout(function () {
+                    console.log(&apos;Wake up after &apos; + second);
+                    next();
+                }, second * 1000);
+            };
+        },
+        eat: function (part) {
+            return function () {
+                console.log(&apos;Eat &apos; + part + &apos;~&apos;);
+                next();
+            };
+        },
+        hi: function () {
+            console.log(&apos;Hi! This is &apos; + name + &apos;!&apos;);
+            next();
+        }
+    };
+
+    queue.push(task.hi);
+
+    function next() {
+        var fn = queue.shift();
+        fn &amp;&amp; fn();
+    }
+
+    // flush later
+    setTimeout(function () {
+        next();
+    }, 0);
+
+    return {
+        sleep: function (second) {
+            queue.push(task.wait(second));
+            return this;
+        },
+        sleepFirst: function (second) {
+            queue.unshift(task.wait(second));
+            return this;
+        },
+        eat: function (part) {
+            queue.push(task.eat(part));
+            return this;
+        }
+    };
+}
+
+LazyMan(&apos;Hanks&apos;).sleepFirst(1).eat(&apos;dinner&apos;).sleep(10);
+</code></pre><h3 id="一些注意点："><a href="#一些注意点：" class="headerlink" title="一些注意点："></a>一些注意点：</h3><ol>
+<li><p>源程序最后一行为<code>module.exports = LazyMan;</code>时可以这么测试；<br>若最后一行为<code>exports.Lazy = LazyMan;</code>则测试为:  </p>
+<pre><code>var Lazy = require(&apos;./LazyMan&apos;);
+Lazy.LazyMan(&apos;Hanks&apos;).sleep(10).eat(&apos;breadfast&apos;);  
+</code></pre></li>
+<li><p>next()的使用，若任务队列为空，则不作处理；反之会执行函数。  </p>
+<blockquote>
+<p><em>关于&amp;&amp;和||</em>  </p>
+<ol>
+<li>expr1 &amp;&amp; expr2<br>如果expr1 能转换成false则返回expr1,否则返回expr2. 因此, 在Boolean环境中使用时, 两个操作结果都为true时返回true,否则返回false.  </li>
+<li>expr1 || expr2<br>如果expr1能转换成true则返回expr1,否则返回expr2. 因此,在boolean环境(在if的条件判断中)中使用时, 二者操作结果中只要有一个为true,返回true;二者操作结果都为false时返回false.</li>
+</ol>
+</blockquote>
+</li>
+</ol>
+<p><em>总之，能确定这个逻辑表达式true or false的那一项将作为返回值。</em>  </p>
+<ol>
+<li>程序中的下面这句是异步执行的重点，即在最后一句执行完毕后，此时所有任务都已经进入任务队列，进入下一轮Event Loop，触发next().      <pre><code>setTimeout(function () {<br> next();<br>}, 0); </code></pre></li>
+<li>最后return语句中的<code>return this;</code>是为了链式调用。</li>
+</ol>
+<h3 id="ES6做法–byPromise"><a href="#ES6做法–byPromise" class="headerlink" title="ES6做法–byPromise"></a>ES6做法–byPromise</h3><pre><code>function createWaitPromise(second) {
     return new Promise(function (resolve, reject) {
         setTimeout(function () {
             resolve(&apos;Wake up after &apos; + second);
@@ -389,31 +461,7 @@ module.exports = LazyMan;
 </code></pre><p>测试：</p>
 <pre><code>var LazyMan = require(&apos;./LazyMan&apos;);
 LazyMan(&apos;Hank&apos;).sleepFirst(10).eat(&apos;breadfast&apos;).sleep(5).eat(&apos;lunch&apos;).sleep(10).eat(&apos;dinner&apos;);
-</code></pre><h3 id="一些注意点："><a href="#一些注意点：" class="headerlink" title="一些注意点："></a>一些注意点：</h3><ol>
-<li><p>源程序最后一行为<code>module.exports = LazyMan;</code>时可以这么测试；<br>若最后一行为<code>exports.Lazy = LazyMan;</code>则测试为:  </p>
-<pre><code>var Lazy = require(&apos;./LazyMan&apos;);
-Lazy.LazyMan(&apos;Hanks&apos;).sleep(10).eat(&apos;breadfast&apos;);  
-</code></pre></li>
-<li><p>next()的使用，若任务队列为空，则不作处理；反之会执行函数。  </p>
-<blockquote>
-<p>####关于&amp;&amp;和||  </p>
-<ol>
-<li>expr1 &amp;&amp; expr2<br>如果expr1 能转换成false则返回expr1,否则返回expr2. 因此, 在Boolean环境中使用时, 两个操作结果都为true时返回true,否则返回false.  </li>
-<li>expr1 || expr2<br>如果expr1能转换成true则返回expr1,否则返回expr2. 因此,在boolean环境(在if的条件判断中)中使用时, 二者操作结果中只要有一个为true,返回true;二者操作结果都为false时返回false.</li>
-</ol>
-</blockquote>
-</li>
-</ol>
-<p><em>总之，能确定这个逻辑表达式true or false的那一项将作为返回值。</em>  </p>
-<ol>
-<li><p>程序中的下面这句是异步执行的重点，即在最后一句执行完毕后，此时所有任务都已经进入任务队列，进入下一轮Event Loop，触发next().  </p>
-<p> setTimeout(function () {</p>
-<pre><code>next();
-</code></pre><p> }, 0);   </p>
-</li>
-<li><p>最后return语句中的<code>return this;</code>是为了链式调用。</p>
-</li>
-</ol>
+</code></pre><p>运行原理是把每一个任务的信息由下一个任务打印出来，最重要的是传递消息。</p>
 <p>More info: <a href="http://hushicai.com/2015/05/07/a-frontend-interview-question-of-weixin.html" target="_blank" rel="external">原题</a></p>
 
       
@@ -574,7 +622,7 @@ Lazy.LazyMan(&apos;Hanks&apos;).sleep(10).eat(&apos;breadfast&apos;);
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#问题描述"><span class="nav-number">1.</span> <span class="nav-text">问题描述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本做法"><span class="nav-number">1.1.</span> <span class="nav-text">基本做法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一些注意点："><span class="nav-number">1.2.</span> <span class="nav-text">一些注意点：</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#问题描述"><span class="nav-number">1.</span> <span class="nav-text">问题描述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本做法"><span class="nav-number">1.1.</span> <span class="nav-text">基本做法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一些注意点："><span class="nav-number">1.2.</span> <span class="nav-text">一些注意点：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ES6做法–byPromise"><span class="nav-number">1.3.</span> <span class="nav-text">ES6做法–byPromise</span></a></li></ol></li></ol></div>
             
 
           </div>
