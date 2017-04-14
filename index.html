@@ -771,17 +771,19 @@ Lazy.LazyMan(&apos;Hanks&apos;).sleep(10).eat(&apos;breadfast&apos;);
 <li><p>next()的使用，若任务队列为空，则不作处理；反之会执行函数。  </p>
 <blockquote>
 <p>####关于&amp;&amp;和||  </p>
-</blockquote>
-</li>
+<ol>
 <li>expr1 &amp;&amp; expr2<br>如果expr1 能转换成false则返回expr1,否则返回expr2. 因此, 在Boolean环境中使用时, 两个操作结果都为true时返回true,否则返回false.  </li>
 <li>expr1 || expr2<br>如果expr1能转换成true则返回expr1,否则返回expr2. 因此,在boolean环境(在if的条件判断中)中使用时, 二者操作结果中只要有一个为true,返回true;二者操作结果都为false时返回false.</li>
+</ol>
+</blockquote>
+</li>
 </ol>
 <p><em>总之，能确定这个逻辑表达式true or false的那一项将作为返回值。</em>  </p>
 <ol>
 <li><p>程序中的下面这句是异步执行的重点，即在最后一句执行完毕后，此时所有任务都已经进入任务队列，进入下一轮Event Loop，触发next().  </p>
-<p> setTimeout(function () {  </p>
-<pre><code>next();  
-</code></pre><p> }, 0);</p>
+<p> setTimeout(function () {</p>
+<pre><code>next();
+</code></pre><p> }, 0);   </p>
 </li>
 <li><p>最后return语句中的<code>return this;</code>是为了链式调用。</p>
 </li>
