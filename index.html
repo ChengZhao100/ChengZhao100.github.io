@@ -247,6 +247,212 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/28/JavaScript日历/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Cheng Zhao">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/./images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mr.Cheng">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/04/28/JavaScript日历/" itemprop="url">
+                  JavaScript实现日历
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-28T16:27:43+08:00">
+                2017-04-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>昨天参加百度前端笔试的时候遇到一个让手写日历的题目，由于时间比较紧没有写出来，现在补充一下，其实挺简单的。</p>
+<h2 id="Source-Code"><a href="#Source-Code" class="headerlink" title="Source Code"></a>Source Code</h2><pre><code>&lt;!DOCTYPE&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html;charset=UTF-8&quot; /&gt;
+    &lt;title&gt;js日历&lt;/title&gt;
+    &lt;style type=&quot;text/css&quot;&gt;
+        table tr td {
+            width:27px;
+            text-align:center;
+        }
+    &lt;/style&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+        //获取日历的函数，参数是年份year和月份Month，默认是今年当月的日历
+    function getcalendar(year,month){
+        year = year ? year : new Date().getFullYear();
+        //month是0开始到11结束的，获取当前月份必须加1
+        month = month ? month : new Date().getMonth()+1;
+        var last = new Date(year,month-1,0);
+        var lastdate = last.getDate();//获取上个月的最大日期
+        var lastday = last.getDay();//获取上个月最大日期的星期几
+        var months = new Date(year,month,0);
+        var Maxdate = months.getDate();//获取这个月最大的日期
+        //获取当前的日期，为的是高亮显示当前的日期
+        var today = new Date().getDate();
+        var thisyear =  new Date().getFullYear();
+        var thismonth =  new Date().getMonth()+1;
+        var str = &apos;&lt;table&gt;&lt;tr style=&quot;font-size:21px;font-weight:bold;&quot;&gt;&lt;td id=&quot;dec&quot;&gt;\&lt;&lt;/td&gt; &lt;td colspan=&quot;5&quot;&gt;&apos;+year+&apos;年&apos;+month+&apos;月&lt;/td&gt;&lt;td id=&quot;add&quot;&gt;\&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;th&gt;日&lt;/th&gt;&lt;th&gt;一&lt;/th&gt;&lt;th&gt;二&lt;/th&gt;&lt;th&gt;三&lt;/th&gt;&lt;th&gt;四&lt;/th&gt;&lt;th&gt;五&lt;/th&gt;&lt;th&gt;六&lt;/th&gt;&lt;/tr&gt;&apos;;
+        //获取上个月在这个月份中存在的最后日期
+        var remainlastdate = lastdate - lastday;
+        var t = 1;
+        str += &apos;&lt;tr&gt;&apos;;
+        for(var g=0;g&lt;=6;g++){
+        //星期是从0开始到6结束的，小于等于上个月最大星期的日期则是上个月的日期
+            if(g &lt;= lastday){
+                str +=&apos;&lt;td&gt;&apos;+ remainlastdate++ +&apos;&lt;/td&gt;&apos;;
+            }else{
+                //高亮显示当前日期
+                if(thisyear == year &amp;&amp; thismonth == month &amp;&amp; today == t){
+                    str +=&apos;&lt;td style=&quot;color:red;&quot;&gt;&apos;+ t++ +&apos;&lt;/td&gt;&apos;;
+                //假如不是当前月份则默认1为高亮日期
+                }else if((thisyear != year &amp;&amp; t == 1) || (thismonth != month &amp;&amp; t == 1)){
+                    str +=&apos;&lt;td style=&quot;color:red;&quot;&gt;&apos;+ t++ +&apos;&lt;/td&gt;&apos;;
+                }else{
+                //该月份的普通日期
+                    str +=&apos;&lt;td style=&quot;color:blue;&quot;&gt;&apos;+ t++ +&apos;&lt;/td&gt;&apos;;
+                }
+            }
+        }
+        str += &apos;&lt;/tr&gt;&apos;;
+        //除去上面的部分，这个月从哪里开始
+        var remainlastday = 6 - lastday + 1;
+        var nextMonthday = 1;//下一个月份的开始日期
+        //这里i最大值为5是为了兼容所有的月份，有的月份可能跨越6个tr
+        for(var i=1;i&lt;=5;i++){
+            str += &apos;&lt;tr&gt;&apos;;
+            for(var j=0;j&lt;7;j++){
+                if(remainlastday &lt;= Maxdate){
+                    if(thisyear == year &amp;&amp; thismonth == month &amp;&amp; today == remainlastday){
+                        str +=&apos;&lt;td style=&quot;color:red;&quot;&gt;&apos;+ remainlastday++ +&apos;&lt;/td&gt;&apos;;
+                    }else{
+                        if((thisyear != year &amp;&amp; remainlastday == 1) || (thismonth != month &amp;&amp; remainlastday == 1)){
+                            //剩下的天数从这里开始的话，默认的第一天还是为红色
+                            str +=&apos;&lt;td style=&quot;color:red;&quot;&gt;&apos;+ remainlastday++ +&apos;&lt;/td&gt;&apos;;
+                        }else{
+                            str +=&apos;&lt;td style=&quot;color:blue;&quot;&gt;&apos;+ remainlastday++ +&apos;&lt;/td&gt;&apos;;
+                        }
+                    }
+                }else{
+                    str +=&apos;&lt;td&gt;&apos;+ nextMonthday++ +&apos;&lt;/td&gt;&apos;;
+                }
+            }
+            str += &apos;&lt;/tr&gt;&apos;;
+        }
+        str +=&apos;&lt;/table&gt;&apos;;
+        return str;
+    }
+    document.write(getcalendar(2017,3));
+    document.write(getcalendar());
+    document.write(getcalendar(2017,5));
+    &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;&lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p>More info: <a href="http://www.cnblogs.com/loveyoume/p/6239475.html" target="_blank" rel="external">参考博客</a></p>
+<h3 id="一些分析"><a href="#一些分析" class="headerlink" title="一些分析"></a>一些分析</h3><p>  主要思路是先写出第一行，包含与上个月的混合；然后依次写下去即可，判断是否为红色时较为麻烦。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/13/hexo更换主题/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1053,7 +1259,7 @@ LazyMan(&apos;Hank&apos;).sleepFirst(10).eat(&apos;breadfast&apos;).sleep(5).eat
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">Artikel</span>
               </a>
             </div>
