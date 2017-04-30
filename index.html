@@ -194,7 +194,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Startseite
+            Home
           </a>
         </li>
       
@@ -204,7 +204,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            Archiv
+            Archives
           </a>
         </li>
       
@@ -284,7 +284,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-30T11:35:05+08:00">
                 2017-04-30
@@ -333,7 +333,7 @@
 <p> 5、本地DNS服务器继续向域服务器发出请求，在这个例子中，请求的对象是.com域服务器。.com域服务器收到请求之后，也不会直接返回域名和IP地址的对应关系，而是告诉本地DNS服务器，你的域名的解析服务器的地址。  </p>
 <p> 6、最后，本地DNS服务器向域名的解析服务器发出请求，这时就能收到一个域名和IP地址对应关系，本地DNS服务器不仅要把IP地址返回给用户电脑，还要把这个对应关系保存在缓存中，以备下次别的用户查询时，可以直接返回结果，加快网络访问。  </p>
 <p>下面这张图很完美的解释了这一过程：   </p>
-<p><img src="dns.jpg" alt="Alt text"></p>
+<p><img src="pic/dns.jpg" alt="Alt text"></p>
 <h3 id="—知识扩展—"><a href="#—知识扩展—" class="headerlink" title="—知识扩展—"></a>—知识扩展—</h3><h3 id="1-什么是DNS？"><a href="#1-什么是DNS？" class="headerlink" title="1)什么是DNS？"></a>1)什么是DNS？</h3><p>　　DNS（Domain Name System，域名系统），因特网上作为域名和IP地址相互映射的一个分布式数据库，能够使用户更方便的访问互联网，而不用去记住能够被机器直接读取的IP数串。通过主机名，最终得到该主机名对应的IP地址的过程叫做域名解析（或主机名解析）。  </p>
 <p>　　通俗的讲，我们更习惯于记住一个网站的名字，比如www.baidu.com,而不是记住它的ip地址，比如：167.23.10.2。而计算机更擅长记住网站的ip地址，而不是像www.baidu.com等链接。因为，DNS就相当于一个电话本，比如你要找www.baidu.com这个域名，那我翻一翻我的电话本，我就知道，哦，它的电话（ip）是167.23.10.2。</p>
 <h3 id="4-DNS负载均衡"><a href="#4-DNS负载均衡" class="headerlink" title="4)DNS负载均衡"></a>4)DNS负载均衡</h3><p>　　当一个网站有足够多的用户的时候，假如每次请求的资源都位于同一台机器上面，那么这台机器随时可能会蹦掉。处理办法就是用DNS负载均衡技术，它的原理是在DNS服务器中为同一个主机名配置多个IP地址,在应答DNS查询时,DNS服务器对每个查询将以DNS文件中主机记录的IP地址按顺序返回不同的解析结果,将客户端的访问引导到不同的机器上去,使得不同的客户端访问不同的服务器,从而达到负载均衡的目的｡例如可以根据每台机器的负载量，该机器离用户地理位置的距离等等。  </p>
@@ -366,8 +366,7 @@ User-Agent:Mozila/4.0(compatible:MSIE5.01:Windows NT5.0)
 Accept-Encoding:gzip,deflate.  
 </code></pre><p>（3）请求正文<br>请求头和请求正文之间是一个空行，这个行非常重要，它表示请求头已经结束，接下来的是请求正文。请求正文中可以包含客户提交的查询字符串信息：  </p>
 <pre><code>username=jinqiao&amp;password=1234  
-</code></pre><h3 id="—知识扩展—-1"><a href="#—知识扩展—-1" class="headerlink" title="—知识扩展—"></a>—知识扩展—</h3><p>###1）TCP三次握手  </p>
-<ul>
+</code></pre><h3 id="—知识扩展—-1"><a href="#—知识扩展—-1" class="headerlink" title="—知识扩展—"></a>—知识扩展—</h3><h3 id="1-TCP三次握手"><a href="#1-TCP三次握手" class="headerlink" title="1)TCP三次握手"></a>1)TCP三次握手</h3><ul>
 <li><p>第一次握手：客户端A将标志位SYN置为1,随机产生一个值为<code>seq=J</code>（J的取值范围为=1234567）的数据包到服务器，客户端A进入<code>SYN_SENT</code>状态，等待服务端B确认；  </p>
 </li>
 <li><p>第二次握手：服务端B收到数据包后由标志位SYN=1知道客户端A请求建立连接，服务端B将标志位SYN和ACK都置为1，<code>ack=J+1</code>，随机产生一个值<code>seq=K</code>，并将该数据包发送给客户端A以确认连接请求，服务端B进入<code>SYN_RCVD</code>状态；  </p>
@@ -377,11 +376,10 @@ Accept-Encoding:gzip,deflate.
 </ul>
 <p>如图所示：  </p>
 <p><img src="tcp1.png" alt="">  </p>
-<p>###2）为什么需要三次握手？<br>《计算机网络》第四版中讲“三次握手”的目的是“为了防止已失效的连接请求报文段突然又传送到了服务端，因而产生错误”。  </p>
+<h3 id="2）为什么需要三次握手？"><a href="#2）为什么需要三次握手？" class="headerlink" title="2）为什么需要三次握手？"></a>2）为什么需要三次握手？</h3><p>《计算机网络》第四版中讲“三次握手”的目的是“为了防止已失效的连接请求报文段突然又传送到了服务端，因而产生错误”。  </p>
 <p>　　书中的例子是这样的，“已失效的连接请求报文段”的产生在这样一种情况下：client发出的第一个连接请求报文段并没有丢失，而是在某个网络结点长时间的滞留了，以致延误到连接释放以后的某个时间才到达server。本来这是一个早已失效的报文段。但server收到此失效的连接请求报文段后，就误认为是client再次发出的一个新的连接请求。于是就向client发出确认报文段，同意建立连接。  </p>
 <p>　　假设不采用“三次握手”，那么只要server发出确认，新的连接就建立了。由于现在client并没有发出建立连接的请求，因此不会理睬server的确认，也不会向server发送数据。但server却以为新的运输连接已经建立，并一直等待client发来数据。这样，server的很多资源就白白浪费掉了。采用“三次握手”的办法可以防止上述现象发生。例如刚才那种情况，client不会向server的确认发出确认。server由于收不到确认，就知道client并没有要求建立连接。”。主要目的防止server端一直等待，浪费资源。 </p>
-<p>###3）TCP四次挥手  </p>
-<ul>
+<h3 id="3）TCP四次挥手"><a href="#3）TCP四次挥手" class="headerlink" title="3）TCP四次挥手"></a>3）TCP四次挥手</h3><ul>
 <li><p>第一次挥手：Client发送一个FIN，用来关闭Client到Server的数据传送，Client进入FIN_WAIT_1状态。  </p>
 </li>
 <li><p>第二次挥手：Server收到FIN后，发送一个ACK给Client，确认序号为收到序号+1（与- SYN相同，一个FIN占用一个序号），Server进入CLOSE_WAIT状态。  </p>
@@ -394,37 +392,33 @@ Accept-Encoding:gzip,deflate.
 <p><img src="tcp2.png" alt="">  </p>
 <p>【注意】中断连接端可以是Client端，也可以是Server端。  </p>
 <p>假设Client端发起中断连接请求，也就是发送FIN报文。Server端接到FIN报文后，意思是说”我Client端没有数据要发给你了”，但是如果你还有数据没有发送完成，则不必急着关闭Socket，可以继续发送数据。所以你先发送ACK，”告诉Client端，你的请求我收到了，但是我还没准备好，请继续你等我的消息”。这个时候Client端就进入<code>FIN_WAIT</code>状态，继续等待Server端的FIN报文。当Server端确定数据已发送完成，则向Client端发送FIN报文，”告诉Client端，好了，我这边数据发完了，准备好关闭连接了”。Client端收到FIN报文后，”就知道可以关闭连接了，但是他还是不相信网络，怕Server端不知道要关闭，所以发送ACK后进入<code>TIME_WAIT</code>状态，如果Server端没有收到ACK则可以重传。“，Server端收到ACK后，”就知道可以断开连接了”。Client端等待了2MSL后依然没有收到回复，则证明Server端已正常关闭，那好，我Client端也可以关闭连接了。Ok，TCP连接就这样关闭了！</p>
-<p>###4）为什么建立连接是三次握手，而关闭连接却是四次挥手呢？<br>　　这是因为服务端在LISTEN状态下，收到建立连接请求的SYN报文后，把ACK和SYN放在一个报文里发送给客户端。而关闭连接时，当收到对方的FIN报文时，仅仅表示对方不再发送数据了但是还能接收数据，己方也未必全部数据都发送给对方了，所以己方可以立即close，也可以发送一些数据给对方后，再发送FIN报文给对方来表示同意现在关闭连接，因此，己方ACK和FIN一般都会分开发送。  </p>
+<h3 id="4）为什么建立连接是三次握手，而关闭连接却是四次挥手呢？"><a href="#4）为什么建立连接是三次握手，而关闭连接却是四次挥手呢？" class="headerlink" title="4）为什么建立连接是三次握手，而关闭连接却是四次挥手呢？"></a>4）为什么建立连接是三次握手，而关闭连接却是四次挥手呢？</h3><p>　　这是因为服务端在LISTEN状态下，收到建立连接请求的SYN报文后，把ACK和SYN放在一个报文里发送给客户端。而关闭连接时，当收到对方的FIN报文时，仅仅表示对方不再发送数据了但是还能接收数据，己方也未必全部数据都发送给对方了，所以己方可以立即close，也可以发送一些数据给对方后，再发送FIN报文给对方来表示同意现在关闭连接，因此，己方ACK和FIN一般都会分开发送。  </p>
 <p>【注意】 在<code>TIME_WAIT</code>状态中，如果TCP client端最后一次发送的ACK丢失了，它将重新发送。<code>TIME_WAIT</code>状态中所需要的时间是依赖于实现方法的。典型的值为30秒、1分钟和2分钟。等待之后连接正式关闭，并且所有的资源(包括端口号)都被释放。  </p>
 <p>【问题1】为什么连接的时候是三次握手，关闭的时候却是四次握手？<br>答：因为当Server端收到Client端的SYN连接请求报文后，可以直接发送SYN+ACK报文。其中ACK报文是用来应答的，SYN报文是用来同步的。但是关闭连接时，当Server端收到FIN报文时，很可能并不会立即关闭SOCKET，所以只能先回复一个ACK报文，告诉Client端，”你发的FIN报文我收到了”。只有等到我Server端所有的报文都发送完了，我才能发送FIN报文，因此不能一起发送。故需要四步握手。  </p>
 <p>【问题2】为什么<code>TIME_WAIT</code>状态需要经过2MSL(最大报文段生存时间)才能返回到CLOSE状态？<br>答：虽然按道理，四个报文都发送完毕，我们可以直接进入CLOSE状态了，但是我们必须假象网络是不可靠的，有可以最后一个ACK丢失。所以<code>TIME_WAIT</code>状态就是用来重发可能丢失的ACK报文。  </p>
-<p>##4、服务器的永久重定向响应<br>　　服务器给浏览器响应一个301永久重定向响应，这样浏览器就会访问<code>http://www.google.com/</code> 而非<code>http://google.com/</code>。　　</p>
+<h2 id="4、服务器的永久重定向响应"><a href="#4、服务器的永久重定向响应" class="headerlink" title="4、服务器的永久重定向响应"></a>4、服务器的永久重定向响应</h2><p>　　服务器给浏览器响应一个301永久重定向响应，这样浏览器就会访问<code>http://www.google.com/</code> 而非<code>http://google.com/</code>。　　</p>
 <p>　　为什么服务器一定要重定向而不是直接发送用户想看的网页内容呢？其中一个原因跟搜索引擎排名有关。如果一个页面有两个地址，就像<code>http://www.yy.com/</code>和<code>http://yy.com/</code>，搜索引擎会认为它们是两个网站，结果造成每个搜索链接都减少从而降低排名。而搜索引擎知道301永久重定向是什么意思，这样就会把访问带www的和不带www的地址归到同一个网站排名下。还有就是用不同的地址会造成缓存友好性变差，当一个页面有好几个名字时，它可能会在缓存里出现好几次。</p>
-<h3 id="—知识扩展—-2"><a href="#—知识扩展—-2" class="headerlink" title="—知识扩展—"></a>—知识扩展—</h3><p>###1）301和302的区别。  </p>
-<p>　　301和302状态码都表示重定向，就是说浏览器在拿到服务器返回的这个状态码后会自动跳转到一个新的URL地址，这个地址可以从响应的Location首部中获取（用户看到的效果就是他输入的地址A瞬间变成了另一个地址B）——这是它们的共同点。  </p>
+<h3 id="—知识扩展—-2"><a href="#—知识扩展—-2" class="headerlink" title="—知识扩展—"></a>—知识扩展—</h3><h3 id="1）301和302的区别。"><a href="#1）301和302的区别。" class="headerlink" title="1）301和302的区别。"></a>1）301和302的区别。</h3><p>　　301和302状态码都表示重定向，就是说浏览器在拿到服务器返回的这个状态码后会自动跳转到一个新的URL地址，这个地址可以从响应的Location首部中获取（用户看到的效果就是他输入的地址A瞬间变成了另一个地址B）——这是它们的共同点。  </p>
 <p>　　他们的不同在于。301表示旧地址A的资源已经被永久地移除了（这个资源不可访问了），搜索引擎在抓取新内容的同时也将旧的网址交换为重定向之后的网址；  </p>
 <p>　　302表示旧地址A的资源还在（仍然可以访问），这个重定向只是临时地从旧地址A跳转到地址B，搜索引擎会抓取新的内容而保存旧的网址。 SEO302好于301。　　</p>
-<p>###2）重定向原因：　　</p>
-<p>  （1）网站调整（如改变网页目录结构）；  </p>
+<h3 id="2）重定向原因："><a href="#2）重定向原因：" class="headerlink" title="2）重定向原因：　　"></a>2）重定向原因：　　</h3><p>  （1）网站调整（如改变网页目录结构）；  </p>
 <p>  （2）网页被移到一个新地址；  </p>
 <p>  （3）网页扩展名改变(如应用需要把.php改成.Html或.shtml)。<br>这种情况下，如果不做重定向，则用户收藏夹或搜索引擎数据库中旧地址只能让访问客户得到一个404页面错误信息，访问流量白白丧失；再者某些注册了多个域名的网站，也需要通过重定向让访问这些域名的用户自动跳转到主站点等。</p>
-<p>###3）什么时候进行301或者302跳转呢？<br>    当一个网站或者网页24—48小时内临时移动到一个新的位置，这时候就要进行302跳转，而使用301跳转的场景就是之前的网站因为某种原因需要移除掉，然后要到新的地址访问，是永久性的。<br>清晰明确而言：使用301跳转的大概场景如下：</p>
+<h3 id="3）什么时候进行301或者302跳转呢？"><a href="#3）什么时候进行301或者302跳转呢？" class="headerlink" title="3）什么时候进行301或者302跳转呢？"></a>3）什么时候进行301或者302跳转呢？</h3><p>    当一个网站或者网页24—48小时内临时移动到一个新的位置，这时候就要进行302跳转，而使用301跳转的场景就是之前的网站因为某种原因需要移除掉，然后要到新的地址访问，是永久性的。<br>清晰明确而言：使用301跳转的大概场景如下：</p>
 <ul>
 <li>域名到期不想续费（或者发现了更适合网站的域名），想换个域名。  </li>
 <li>在搜索引擎的搜索结果中出现了不带www的域名，而带www的域名却没有收录，这个时候可以用301重定向来告诉搜索引擎我们目标的域名是哪一个。  </li>
 <li>空间服务器不稳定，换空间的时候。  </li>
 </ul>
 <h2 id="5、浏览器跟踪重定向地址"><a href="#5、浏览器跟踪重定向地址" class="headerlink" title="5、浏览器跟踪重定向地址"></a>5、浏览器跟踪重定向地址</h2><p>现在浏览器知道了 <code>http://www.google.com/</code>才是要访问的正确地址，所以它会发送另一个http请求。这里没有啥好说的。</p>
-<p>##6、服务器处理请求</p>
-<p>　　经过前面的重重步骤，我们终于将我们的http请求发送到了服务器这里，其实前面的重定向已经是到达服务器了，那么，服务器是如何处理我们的请求的呢？  </p>
+<h2 id="6、服务器处理请求"><a href="#6、服务器处理请求" class="headerlink" title="6、服务器处理请求"></a>6、服务器处理请求</h2><p>　　经过前面的重重步骤，我们终于将我们的http请求发送到了服务器这里，其实前面的重定向已经是到达服务器了，那么，服务器是如何处理我们的请求的呢？  </p>
 <p>　　后端从在固定的端口接收到TCP报文开始，它会对TCP连接进行处理，对HTTP协议进行解析，并按照报文格式进一步封装成HTTP Request对象，供上层使用。  </p>
 <p>　　一些大一点的网站会将你的请求到反向代理服务器中，因为当网站访问量非常大，网站越来越慢，一台服务器已经不够用了。于是将同一个应用部署在多台服务器上，将大量用户的请求分配给多台机器处理。此时，客户端不是直接通过HTTP协议访问某网站应用服务器，而是先请求到Nginx，Nginx再请求应用服务器，然后将结果返回给客户端，这里Nginx的作用是反向代理服务器。同时也带来了一个好处，其中一台服务器万一挂了，只要还有其他服务器正常运行，就不会影响用户使用。</p>
 <p>如图所示：　　</p>
 <p><img src="nginx.jpg" alt="">  </p>
 <p>通过Nginx的反向代理，我们到达了web服务器，服务端脚本处理我们的请求，访问我们的数据库，获取需要获取的内容等等，当然，这个过程涉及很多后端脚本的复杂操作。由于对这一块不熟，所以这一块只能介绍这么多了。</p>
-<h3 id="—知识扩展—-3"><a href="#—知识扩展—-3" class="headerlink" title="—知识扩展—"></a>—知识扩展—</h3><p>###什么是反向代理？<br>客户端本来可以直接通过HTTP协议访问某网站应用服务器，网站管理员可以在中间加上一个Nginx，客户端请求Nginx，Nginx请求应用服务器，然后将结果返回给客户端，此时Nginx就是反向代理服务器。  </p>
-<p>##7、服务器返回一个 HTTP 响应　</p>
-<p>经过前面的6个步骤，服务器收到了我们的请求，也处理我们的请求，到这一步，它会把它的处理结果返回，也就是返回一个HTPP响应。  </p>
+<h3 id="—知识扩展—-3"><a href="#—知识扩展—-3" class="headerlink" title="—知识扩展—"></a>—知识扩展—</h3><h3 id="什么是反向代理？"><a href="#什么是反向代理？" class="headerlink" title="什么是反向代理？"></a>什么是反向代理？</h3><p>客户端本来可以直接通过HTTP协议访问某网站应用服务器，网站管理员可以在中间加上一个Nginx，客户端请求Nginx，Nginx请求应用服务器，然后将结果返回给客户端，此时Nginx就是反向代理服务器。  </p>
+<h2 id="7、服务器返回一个-HTTP-响应"><a href="#7、服务器返回一个-HTTP-响应" class="headerlink" title="7、服务器返回一个 HTTP 响应　"></a>7、服务器返回一个 HTTP 响应　</h2><p>经过前面的6个步骤，服务器收到了我们的请求，也处理我们的请求，到这一步，它会把它的处理结果返回，也就是返回一个HTPP响应。  </p>
 <p>HTTP响应与HTTP请求相似，HTTP响应也由3个部分构成，分别是：</p>
 <ul>
 <li>状态行</li>
@@ -432,7 +426,7 @@ Accept-Encoding:gzip,deflate.
 <li>响应正文<br><pre><code><br>HTTP/1.1 200 OK<br>Date: Sat, 31 Dec 2005 23:59:59 GMT<br>Content-Type: text/html;charset=ISO-8859-1<br>Content-Length: 122  </code></pre></li>
 </ul>
 <p>＜html＞<br>＜head＞<br>＜title＞http＜/title＞<br>＜/head＞<br>＜body＞<br>＜!– body goes here –＞<br>＜/body＞<br>＜/html＞<br>  </p>
-<p>###状态行：<br>状态行由协议版本、数字形式的状态代码、及相应的状态描述，各元素之间以空格分隔。  </p>
+<h3 id="状态行："><a href="#状态行：" class="headerlink" title="状态行："></a>状态行：</h3><p>状态行由协议版本、数字形式的状态代码、及相应的状态描述，各元素之间以空格分隔。  </p>
 <p>格式: <code>HTTP-Version Status-Code Reason-Phrase CRLF</code><br>例如: <code>HTTP/1.1 200 OK \r\n</code></p>
 <p>| -协议版本：是用http1.0还是其他版本<br>| -状态描述：状态描述给出了关于状态代码的简短的文字描述。比如状态代码为200时的描述为 ok<br>| -态代码：状态代码由三位数字组成，第一个数字定义了响应的类别，且有五种可能取值。如下：</p>
 <p><code>1xx</code>：信息性状态码，表示服务器已接收了客户端请求，客户端可继续发送请求。</p>
@@ -465,10 +459,10 @@ Accept-Encoding:gzip,deflate.
 <li>500 Internel Server Error 表示服务器发生不可预期的错误，导致无法完成客户端的请求</li>
 <li>503 Service Unavailable 表示服务器当前不能够处理客户端的请求，在一段时间之后，服务器可能会恢复正常  </li>
 </ul>
-<p>####响应头：<br>　　响应头部：由关键字/值对组成，每行一对，关键字和值用英文冒号”:”分隔，典型的响应头有：</p>
+<h4 id="响应头："><a href="#响应头：" class="headerlink" title="响应头："></a>响应头：</h4><p>　　响应头部：由关键字/值对组成，每行一对，关键字和值用英文冒号”:”分隔，典型的响应头有：</p>
 <p><img src="1.png" alt="">  </p>
-<p>####响应正文<br>包含着我们需要的一些具体信息，比如cookie，html,image，后端返回的请求数据等等。这里需要注意，响应正文和响应头之间有一行空格，表示响应头的信息到空格为止。  </p>
-<p>##8、浏览器显示 HTML<br>在浏览器没有完整接受全部HTML文档时，它就已经开始显示这个页面了，浏览器是如何把页面呈现在屏幕上的呢？WebKit渲染的过程包括：</p>
+<h4 id="响应正文"><a href="#响应正文" class="headerlink" title="响应正文"></a>响应正文</h4><p>包含着我们需要的一些具体信息，比如cookie，html,image，后端返回的请求数据等等。这里需要注意，响应正文和响应头之间有一行空格，表示响应头的信息到空格为止。  </p>
+<h2 id="8、浏览器显示-HTML"><a href="#8、浏览器显示-HTML" class="headerlink" title="8、浏览器显示 HTML"></a>8、浏览器显示 HTML</h2><p>在浏览器没有完整接受全部HTML文档时，它就已经开始显示这个页面了，浏览器是如何把页面呈现在屏幕上的呢？WebKit渲染的过程包括：</p>
 <p>解析html：<code>构建dom树 -&gt; 构建render树 -&gt; 布局render树 -&gt; 绘制render树</code>  </p>
 <p>　　浏览器在解析html文件时，会”自上而下“加载，并在加载过程中进行解析渲染。在解析过程中，如果遇到请求外部资源时，如图片、外链的CSS、iconfont等，请求过程是异步的，并不会影响html文档进行加载。  </p>
 <p>　　解析过程中，浏览器首先会解析HTML文件构建DOM树，然后解析CSS文件构建渲染树，等到渲染树构建完成后，浏览器开始布局渲染树并将其绘制到屏幕上。这个过程比较复杂，涉及到两个概念: reflow(回流)和repain(重绘)。</p>
@@ -478,9 +472,8 @@ Accept-Encoding:gzip,deflate.
 <p>　　JS的解析是由浏览器中的JS解析引擎完成的，比如谷歌的是V8。JS是单线程运行，也就是说，在同一个时间内只能做一件事，所有的任务都需要排队，前一个任务结束，后一个任务才能开始。但是又存在某些任务比较耗时，如IO读写等，所以需要一种机制可以先执行排在后面的任务，这就是：同步任务(synchronous)和异步任务(asynchronous)。  </p>
 <p>　　JS的执行机制就可以看做是一个主线程加上一个任务队列(task queue)。同步任务就是放在主线程上执行的任务，异步任务是放在任务队列中的任务。所有的同步任务在主线程上执行，形成一个执行栈;异步任务有了运行结果就会在任务队列中放置一个事件；脚本运行时先依次运行执行栈，然后会从任务队列里提取事件，运行任务队列中的任务，这个过程是不断重复的，所以又叫做事件循环(Event loop)。  
 　  </p>
-<p>##9、浏览器发送请求获取嵌入在 HTML 中的资源（如图片、音频、视频、CSS、JS等等）<br>　　这些都是和HTML读取类似的过程。所以浏览器会在DNS中查找这些域名，发送请求，重定向等等…不像动态页面，静态文件会允许浏览器对其进行缓存。有的文件可能会不需要与服务器通讯，而从缓存中直接读取，或者可以放到CDN中。</p>
-<p>####Little skills writing Markdown:  </p>
-<ol>
+<h2 id="9、浏览器发送请求获取嵌入在-HTML-中的资源（如图片、音频、视频、CSS、JS等等）"><a href="#9、浏览器发送请求获取嵌入在-HTML-中的资源（如图片、音频、视频、CSS、JS等等）" class="headerlink" title="9、浏览器发送请求获取嵌入在 HTML 中的资源（如图片、音频、视频、CSS、JS等等）"></a>9、浏览器发送请求获取嵌入在 HTML 中的资源（如图片、音频、视频、CSS、JS等等）</h2><p>　　这些都是和HTML读取类似的过程。所以浏览器会在DNS中查找这些域名，发送请求，重定向等等…不像动态页面，静态文件会允许浏览器对其进行缓存。有的文件可能会不需要与服务器通讯，而从缓存中直接读取，或者可以放到CDN中。</p>
+<h4 id="Little-skills-writing-Markdown"><a href="#Little-skills-writing-Markdown" class="headerlink" title="Little skills writing Markdown:"></a>Little skills writing Markdown:</h4><ol>
 <li>插入图片的时候用：<code>![Alt text](/path/to/img.jpg &quot;Optional title&quot;)</code><br>　　Optional title 即为鼠标悬浮在上面时显示的文字  </li>
 <li>首行缩进：输入法切换到全角，双击空格键（切换方法：shift+空格）<br>。  </li>
 <li>在段落内插入代码时用``。</li>
@@ -566,7 +559,7 @@ Accept-Encoding:gzip,deflate.
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-28T16:27:43+08:00">
                 2017-04-28
@@ -772,7 +765,7 @@ Accept-Encoding:gzip,deflate.
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-13T17:05:06+08:00">
                 2017-04-13
@@ -1001,7 +994,7 @@ aboutme: 很惭愧&lt;br&gt;&lt;br&gt;只做了一点微小的工作&lt;br&gt;�
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-13T15:15:13+08:00">
                 2017-04-13
@@ -1144,7 +1137,7 @@ promise.then(function(){
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-13T10:41:51+08:00">
                 2017-04-13
@@ -1413,7 +1406,7 @@ LazyMan(&apos;Hank&apos;).sleepFirst(10).eat(&apos;breadfast&apos;).sleep(5).eat
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-08T11:18:35+08:00">
                 2017-04-08
@@ -1542,7 +1535,7 @@ LazyMan(&apos;Hank&apos;).sleepFirst(10).eat(&apos;breadfast&apos;).sleep(5).eat
             <div class="site-state-item site-state-posts">
               <a href="/archives">
                 <span class="site-state-item-count">6</span>
-                <span class="site-state-item-name">Artikel</span>
+                <span class="site-state-item-name">posts</span>
               </a>
             </div>
           
@@ -1596,7 +1589,7 @@ LazyMan(&apos;Hank&apos;).sleepFirst(10).eat(&apos;breadfast&apos;).sleep(5).eat
 
 
 <div class="powered-by">
-  Erstellt mit  <a class="theme-link" href="https://hexo.io">Hexo</a>
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
 </div>
 
 <div class="theme-info">
