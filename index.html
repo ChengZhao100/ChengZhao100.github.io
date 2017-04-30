@@ -459,7 +459,7 @@
 <p>　　通俗的讲，我们更习惯于记住一个网站的名字，比如www.baidu.com,而不是记住它的ip地址，比如：167.23.10.2。而计算机更擅长记住网站的ip地址，而不是像www.baidu.com等链接。因为，DNS就相当于一个电话本，比如你要找www.baidu.com这个域名，那我翻一翻我的电话本，我就知道，哦，它的电话（ip）是167.23.10.2。</p>
 <h3 id="2-DNS负载均衡"><a href="#2-DNS负载均衡" class="headerlink" title="2)DNS负载均衡"></a>2)DNS负载均衡</h3><p>　　当一个网站有足够多的用户的时候，假如每次请求的资源都位于同一台机器上面，那么这台机器随时可能会蹦掉。处理办法就是用DNS负载均衡技术，它的原理是在DNS服务器中为同一个主机名配置多个IP地址,在应答DNS查询时,DNS服务器对每个查询将以DNS文件中主机记录的IP地址按顺序返回不同的解析结果,将客户端的访问引导到不同的机器上去,使得不同的客户端访问不同的服务器,从而达到负载均衡的目的｡例如可以根据每台机器的负载量，该机器离用户地理位置的距离等等。  </p>
 <h2 id="3、浏览器向-web-服务器发送一个-HTTP-请求"><a href="#3、浏览器向-web-服务器发送一个-HTTP-请求" class="headerlink" title="3、浏览器向 web 服务器发送一个 HTTP 请求"></a>3、浏览器向 web 服务器发送一个 HTTP 请求</h2><p>拿到域名对应的IP地址之后，浏览器会以一个随机端口（1024&lt;端口&lt;65535）向服务器的WEB程序（常用的有httpd,nginx等）80端口发起TCP的连接请求。这个连接请求到达服务器端后（这中间通过各种路由设备，局域网内除外），进入到网卡，然后是进入到内核的TCP/IP协议栈（用于识别该连接请求，解封包，一层一层的剥开），还有可能要经过Netfilter防火墙（属于内核的模块）的过滤，最终到达WEB程序，最终建立了TCP/IP的连接。  </p>
-<p>TCP连接如图所示:<br><img src="tcpEstablish.jpg" alt=""> </p>
+<p>TCP连接如图所示:<br><img src="http://img.bitscn.com/upimg/allimg/c160831/14H61600J21Z-2N62.jpg?_=6547807" alt=""> </p>
 <p>建立了TCP连接之后，发起一个http请求。一个典型的 http request header 一般需要包括请求的方法，例如 GET 或者 POST 等，不常用的还有 PUT 和 DELETE 、HEAD、OPTION以及 TRACE 方法，一般的浏览器只能发起 GET 或者 POST 请求。  </p>
 <p>客户端向服务器发起http请求的时候，会有一些请求信息，请求信息包含三个部分：</p>
 <ul>
@@ -496,7 +496,7 @@ Accept-Encoding:gzip,deflate.
 </li>
 </ul>
 <p>如图所示：  </p>
-<p><img src="tcp1.png" alt="">  </p>
+<p><img src="http://www.2cto.com/uploadfile/2013/1022/20131022025346218.png?_=6547807" alt="">  </p>
 <h3 id="2）为什么需要三次握手？"><a href="#2）为什么需要三次握手？" class="headerlink" title="2）为什么需要三次握手？"></a>2）为什么需要三次握手？</h3><p>《计算机网络》第四版中讲“三次握手”的目的是“为了防止已失效的连接请求报文段突然又传送到了服务端，因而产生错误”。  </p>
 <p>　　书中的例子是这样的，“已失效的连接请求报文段”的产生在这样一种情况下：client发出的第一个连接请求报文段并没有丢失，而是在某个网络结点长时间的滞留了，以致延误到连接释放以后的某个时间才到达server。本来这是一个早已失效的报文段。但server收到此失效的连接请求报文段后，就误认为是client再次发出的一个新的连接请求。于是就向client发出确认报文段，同意建立连接。  </p>
 <p>　　假设不采用“三次握手”，那么只要server发出确认，新的连接就建立了。由于现在client并没有发出建立连接的请求，因此不会理睬server的确认，也不会向server发送数据。但server却以为新的运输连接已经建立，并一直等待client发来数据。这样，server的很多资源就白白浪费掉了。采用“三次握手”的办法可以防止上述现象发生。例如刚才那种情况，client不会向server的确认发出确认。server由于收不到确认，就知道client并没有要求建立连接。”。主要目的防止server端一直等待，浪费资源。 </p>
@@ -510,7 +510,7 @@ Accept-Encoding:gzip,deflate.
 <li><p>第四次挥手：Client收到FIN后，Client进入TIME_WAIT状态，接着发送一个ACK给Server，确认序号为收到序号+1，Server进入CLOSED状态，完成四次挥手。 </p>
 </li>
 </ul>
-<p><img src="tcp2.png" alt="">  </p>
+<p><img src="http://www.2cto.com/uploadfile/2013/1022/20131022025350523.png?_=6547807" alt="">  </p>
 <p>【注意】中断连接端可以是Client端，也可以是Server端。  </p>
 <p>假设Client端发起中断连接请求，也就是发送FIN报文。Server端接到FIN报文后，意思是说”我Client端没有数据要发给你了”，但是如果你还有数据没有发送完成，则不必急着关闭Socket，可以继续发送数据。所以你先发送ACK，”告诉Client端，你的请求我收到了，但是我还没准备好，请继续你等我的消息”。这个时候Client端就进入<code>FIN_WAIT</code>状态，继续等待Server端的FIN报文。当Server端确定数据已发送完成，则向Client端发送FIN报文，”告诉Client端，好了，我这边数据发完了，准备好关闭连接了”。Client端收到FIN报文后，”就知道可以关闭连接了，但是他还是不相信网络，怕Server端不知道要关闭，所以发送ACK后进入<code>TIME_WAIT</code>状态，如果Server端没有收到ACK则可以重传。“，Server端收到ACK后，”就知道可以断开连接了”。Client端等待了2MSL后依然没有收到回复，则证明Server端已正常关闭，那好，我Client端也可以关闭连接了。Ok，TCP连接就这样关闭了！</p>
 <h3 id="4）为什么建立连接是三次握手，而关闭连接却是四次挥手呢？"><a href="#4）为什么建立连接是三次握手，而关闭连接却是四次挥手呢？" class="headerlink" title="4）为什么建立连接是三次握手，而关闭连接却是四次挥手呢？"></a>4）为什么建立连接是三次握手，而关闭连接却是四次挥手呢？</h3><p>　　这是因为服务端在LISTEN状态下，收到建立连接请求的SYN报文后，把ACK和SYN放在一个报文里发送给客户端。而关闭连接时，当收到对方的FIN报文时，仅仅表示对方不再发送数据了但是还能接收数据，己方也未必全部数据都发送给对方了，所以己方可以立即close，也可以发送一些数据给对方后，再发送FIN报文给对方来表示同意现在关闭连接，因此，己方ACK和FIN一般都会分开发送。  </p>
@@ -536,7 +536,7 @@ Accept-Encoding:gzip,deflate.
 <p>　　后端从在固定的端口接收到TCP报文开始，它会对TCP连接进行处理，对HTTP协议进行解析，并按照报文格式进一步封装成HTTP Request对象，供上层使用。  </p>
 <p>　　一些大一点的网站会将你的请求到反向代理服务器中，因为当网站访问量非常大，网站越来越慢，一台服务器已经不够用了。于是将同一个应用部署在多台服务器上，将大量用户的请求分配给多台机器处理。此时，客户端不是直接通过HTTP协议访问某网站应用服务器，而是先请求到Nginx，Nginx再请求应用服务器，然后将结果返回给客户端，这里Nginx的作用是反向代理服务器。同时也带来了一个好处，其中一台服务器万一挂了，只要还有其他服务器正常运行，就不会影响用户使用。</p>
 <p>如图所示：　　</p>
-<p><img src="nginx.jpg" alt="">  </p>
+<p><img src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1489904964343&amp;di=c6043cd72bb60f4e129589b6a8f79299&amp;imgtype=0&amp;src=http%3A%2F%2Fhi.csdn.net%2Fattachment%2F201110%2F10%2F0_1318255239Hxxe.gif" alt="">  </p>
 <p>通过Nginx的反向代理，我们到达了web服务器，服务端脚本处理我们的请求，访问我们的数据库，获取需要获取的内容等等，当然，这个过程涉及很多后端脚本的复杂操作。由于对这一块不熟，所以这一块只能介绍这么多了。</p>
 <h3 id="—知识扩展—-3"><a href="#—知识扩展—-3" class="headerlink" title="—知识扩展—"></a>—知识扩展—</h3><h3 id="什么是反向代理？"><a href="#什么是反向代理？" class="headerlink" title="什么是反向代理？"></a>什么是反向代理？</h3><p>客户端本来可以直接通过HTTP协议访问某网站应用服务器，网站管理员可以在中间加上一个Nginx，客户端请求Nginx，Nginx请求应用服务器，然后将结果返回给客户端，此时Nginx就是反向代理服务器。  </p>
 <h2 id="7、服务器返回一个-HTTP-响应"><a href="#7、服务器返回一个-HTTP-响应" class="headerlink" title="7、服务器返回一个 HTTP 响应　"></a>7、服务器返回一个 HTTP 响应　</h2><p>经过前面的6个步骤，服务器收到了我们的请求，也处理我们的请求，到这一步，它会把它的处理结果返回，也就是返回一个HTPP响应。  </p>
@@ -581,7 +581,7 @@ Accept-Encoding:gzip,deflate.
 <li>503 Service Unavailable 表示服务器当前不能够处理客户端的请求，在一段时间之后，服务器可能会恢复正常  </li>
 </ul>
 <h4 id="响应头："><a href="#响应头：" class="headerlink" title="响应头："></a>响应头：</h4><p>　　响应头部：由关键字/值对组成，每行一对，关键字和值用英文冒号”:”分隔，典型的响应头有：</p>
-<p><img src="1.png" alt="">  </p>
+<p><img src="http://images2015.cnblogs.com/blog/776370/201703/776370-20170322193336611-2098719977.png" alt="">  </p>
 <h4 id="响应正文"><a href="#响应正文" class="headerlink" title="响应正文"></a>响应正文</h4><p>包含着我们需要的一些具体信息，比如cookie，html,image，后端返回的请求数据等等。这里需要注意，响应正文和响应头之间有一行空格，表示响应头的信息到空格为止。  </p>
 <h2 id="8、浏览器显示-HTML"><a href="#8、浏览器显示-HTML" class="headerlink" title="8、浏览器显示 HTML"></a>8、浏览器显示 HTML</h2><p>在浏览器没有完整接受全部HTML文档时，它就已经开始显示这个页面了，浏览器是如何把页面呈现在屏幕上的呢？WebKit渲染的过程包括：</p>
 <p>解析html：<code>构建dom树 -&gt; 构建render树 -&gt; 布局render树 -&gt; 绘制render树</code>  </p>
