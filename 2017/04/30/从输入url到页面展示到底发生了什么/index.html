@@ -100,7 +100,7 @@
 <meta property="og:image" content="http://www.2cto.com/uploadfile/2013/1022/20131022025350523.png?_=6547807">
 <meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1489904964343&di=c6043cd72bb60f4e129589b6a8f79299&imgtype=0&src=http%3A%2F%2Fhi.csdn.net%2Fattachment%2F201110%2F10%2F0_1318255239Hxxe.gif">
 <meta property="og:image" content="http://images2015.cnblogs.com/blog/776370/201703/776370-20170322193336611-2098719977.png">
-<meta property="og:updated_time" content="2017-04-30T13:01:11.662Z">
+<meta property="og:updated_time" content="2017-04-30T13:02:40.322Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="从输入url到页面展示到底发生了什么">
 <meta name="twitter:description" content="前端面试必备，总结一下，感觉这部分的精华在于TCP握手挥手的环节。 1、输入地址当我们开始在浏览器中输入网址的时候，浏览器其实就已经在智能的匹配可能得url了，他会从历史记录，书签等地方，找到已经输入的字符串可能对应的 url，然后给出智能提示，让你可以补全url地址。对于google的chrome的浏览器，他甚至会直接从缓存中把网页展示出来，就是说，你还没有按下 enter，页面就出来了。 2、">
@@ -428,9 +428,8 @@ Accept-Encoding:gzip,deflate.
 <ul>
 <li>状态行</li>
 <li>响应头(Response Header)</li>
-<li>响应正文<br><pre><code><br>HTTP/1.1 200 OK<br>Date: Sat, 31 Dec 2005 23:59:59 GMT<br>Content-Type: text/html;charset=ISO-8859-1<br>Content-Length: 122  </code></pre></li>
+<li>响应正文<br><pre><code><br>HTTP/1.1 200 OK<br>Date: Sat, 31 Dec 2005 23:59:59 GMT<br>Content-Type: text/html;charset=ISO-8859-1<br>Content-Length: 122<br>＜html＞<br>＜head＞<br>＜title＞http＜/title＞<br>＜/head＞<br>＜body＞<br>＜!– body goes here –＞<br>＜/body＞<br>＜/html＞<br></code></pre>  </li>
 </ul>
-<p>＜html＞<br>＜head＞<br>＜title＞http＜/title＞<br>＜/head＞<br>＜body＞<br>＜!– body goes here –＞<br>＜/body＞<br>＜/html＞<br>  </p>
 <h3 id="状态行："><a href="#状态行：" class="headerlink" title="状态行："></a>状态行：</h3><p>状态行由协议版本、数字形式的状态代码、及相应的状态描述，各元素之间以空格分隔。  </p>
 <p>格式: <code>HTTP-Version Status-Code Reason-Phrase CRLF</code><br>例如: <code>HTTP/1.1 200 OK \r\n</code></p>
 <p>| -协议版本：是用http1.0还是其他版本<br>| -状态描述：状态描述给出了关于状态代码的简短的文字描述。比如状态代码为200时的描述为 ok<br>| -态代码：状态代码由三位数字组成，第一个数字定义了响应的类别，且有五种可能取值。如下：</p>

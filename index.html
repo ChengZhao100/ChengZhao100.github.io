@@ -544,9 +544,8 @@ Accept-Encoding:gzip,deflate.
 <ul>
 <li>状态行</li>
 <li>响应头(Response Header)</li>
-<li>响应正文<br><pre><code><br>HTTP/1.1 200 OK<br>Date: Sat, 31 Dec 2005 23:59:59 GMT<br>Content-Type: text/html;charset=ISO-8859-1<br>Content-Length: 122  </code></pre></li>
+<li>响应正文<br><pre><code><br>HTTP/1.1 200 OK<br>Date: Sat, 31 Dec 2005 23:59:59 GMT<br>Content-Type: text/html;charset=ISO-8859-1<br>Content-Length: 122<br>＜html＞<br>＜head＞<br>＜title＞http＜/title＞<br>＜/head＞<br>＜body＞<br>＜!– body goes here –＞<br>＜/body＞<br>＜/html＞<br></code></pre>  </li>
 </ul>
-<p>＜html＞<br>＜head＞<br>＜title＞http＜/title＞<br>＜/head＞<br>＜body＞<br>＜!– body goes here –＞<br>＜/body＞<br>＜/html＞<br>  </p>
 <h3 id="状态行："><a href="#状态行：" class="headerlink" title="状态行："></a>状态行：</h3><p>状态行由协议版本、数字形式的状态代码、及相应的状态描述，各元素之间以空格分隔。  </p>
 <p>格式: <code>HTTP-Version Status-Code Reason-Phrase CRLF</code><br>例如: <code>HTTP/1.1 200 OK \r\n</code></p>
 <p>| -协议版本：是用http1.0还是其他版本<br>| -状态描述：状态描述给出了关于状态代码的简短的文字描述。比如状态代码为200时的描述为 ok<br>| -态代码：状态代码由三位数字组成，第一个数字定义了响应的类别，且有五种可能取值。如下：</p>
