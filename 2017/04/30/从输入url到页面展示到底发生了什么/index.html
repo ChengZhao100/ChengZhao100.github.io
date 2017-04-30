@@ -100,7 +100,7 @@
 <meta property="og:image" content="http://yoursite.com/2017/04/30/从输入url到页面展示到底发生了什么/tcp2.png">
 <meta property="og:image" content="http://yoursite.com/2017/04/30/从输入url到页面展示到底发生了什么/nginx.jpg">
 <meta property="og:image" content="http://yoursite.com/2017/04/30/从输入url到页面展示到底发生了什么/1.png">
-<meta property="og:updated_time" content="2017-04-30T12:18:59.953Z">
+<meta property="og:updated_time" content="2017-04-30T12:32:13.209Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="从输入url到页面展示到底发生了什么">
 <meta name="twitter:description" content="前端面试必备，总结一下，感觉这部分的精华在于TCP握手挥手的环节。 1、输入地址当我们开始在浏览器中输入网址的时候，浏览器其实就已经在智能的匹配可能得url了，他会从历史记录，书签等地方，找到已经输入的字符串可能对应的 url，然后给出智能提示，让你可以补全url地址。对于google的chrome的浏览器，他甚至会直接从缓存中把网页展示出来，就是说，你还没有按下 enter，页面就出来了。 2、">
@@ -204,7 +204,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Home
+            Startseite
           </a>
         </li>
       
@@ -214,7 +214,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            Archives
+            Archiv
           </a>
         </li>
       
@@ -291,7 +291,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-30T11:35:05+08:00">
                 2017-04-30
@@ -341,7 +341,7 @@
 <p><img src="pic/dns.jpg" alt="Alt text"></p>
 <h3 id="—知识扩展—"><a href="#—知识扩展—" class="headerlink" title="—知识扩展—"></a>—知识扩展—</h3><h3 id="1-什么是DNS？"><a href="#1-什么是DNS？" class="headerlink" title="1)什么是DNS？"></a>1)什么是DNS？</h3><p>　　DNS（Domain Name System，域名系统），因特网上作为域名和IP地址相互映射的一个分布式数据库，能够使用户更方便的访问互联网，而不用去记住能够被机器直接读取的IP数串。通过主机名，最终得到该主机名对应的IP地址的过程叫做域名解析（或主机名解析）。  </p>
 <p>　　通俗的讲，我们更习惯于记住一个网站的名字，比如www.baidu.com,而不是记住它的ip地址，比如：167.23.10.2。而计算机更擅长记住网站的ip地址，而不是像www.baidu.com等链接。因为，DNS就相当于一个电话本，比如你要找www.baidu.com这个域名，那我翻一翻我的电话本，我就知道，哦，它的电话（ip）是167.23.10.2。</p>
-<h3 id="4-DNS负载均衡"><a href="#4-DNS负载均衡" class="headerlink" title="4)DNS负载均衡"></a>4)DNS负载均衡</h3><p>　　当一个网站有足够多的用户的时候，假如每次请求的资源都位于同一台机器上面，那么这台机器随时可能会蹦掉。处理办法就是用DNS负载均衡技术，它的原理是在DNS服务器中为同一个主机名配置多个IP地址,在应答DNS查询时,DNS服务器对每个查询将以DNS文件中主机记录的IP地址按顺序返回不同的解析结果,将客户端的访问引导到不同的机器上去,使得不同的客户端访问不同的服务器,从而达到负载均衡的目的｡例如可以根据每台机器的负载量，该机器离用户地理位置的距离等等。  </p>
+<h3 id="2-DNS负载均衡"><a href="#2-DNS负载均衡" class="headerlink" title="2)DNS负载均衡"></a>2)DNS负载均衡</h3><p>　　当一个网站有足够多的用户的时候，假如每次请求的资源都位于同一台机器上面，那么这台机器随时可能会蹦掉。处理办法就是用DNS负载均衡技术，它的原理是在DNS服务器中为同一个主机名配置多个IP地址,在应答DNS查询时,DNS服务器对每个查询将以DNS文件中主机记录的IP地址按顺序返回不同的解析结果,将客户端的访问引导到不同的机器上去,使得不同的客户端访问不同的服务器,从而达到负载均衡的目的｡例如可以根据每台机器的负载量，该机器离用户地理位置的距离等等。  </p>
 <h2 id="3、浏览器向-web-服务器发送一个-HTTP-请求"><a href="#3、浏览器向-web-服务器发送一个-HTTP-请求" class="headerlink" title="3、浏览器向 web 服务器发送一个 HTTP 请求"></a>3、浏览器向 web 服务器发送一个 HTTP 请求</h2><p>拿到域名对应的IP地址之后，浏览器会以一个随机端口（1024&lt;端口&lt;65535）向服务器的WEB程序（常用的有httpd,nginx等）80端口发起TCP的连接请求。这个连接请求到达服务器端后（这中间通过各种路由设备，局域网内除外），进入到网卡，然后是进入到内核的TCP/IP协议栈（用于识别该连接请求，解封包，一层一层的剥开），还有可能要经过Netfilter防火墙（属于内核的模块）的过滤，最终到达WEB程序，最终建立了TCP/IP的连接。  </p>
 <p>TCP连接如图所示:<br><img src="tcpEstablish.jpg" alt=""> </p>
 <p>建立了TCP连接之后，发起一个http请求。一个典型的 http request header 一般需要包括请求的方法，例如 GET 或者 POST 等，不常用的还有 PUT 和 DELETE 、HEAD、OPTION以及 TRACE 方法，一般的浏览器只能发起 GET 或者 POST 请求。  </p>
@@ -520,6 +520,10 @@ Accept-Encoding:gzip,deflate.
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2017/04/30/test/test/" rel="next" title="test">
+                <i class="fa fa-chevron-left"></i> test
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
@@ -577,10 +581,10 @@ Accept-Encoding:gzip,deflate.
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            Table of Contents
+            Inhaltsverzeichnis
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview">
-            Overview
+            Übersicht
           </li>
         </ul>
       
@@ -600,8 +604,8 @@ Accept-Encoding:gzip,deflate.
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">6</span>
-                <span class="site-state-item-name">posts</span>
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">Artikel</span>
               </a>
             </div>
           
@@ -639,7 +643,7 @@ Accept-Encoding:gzip,deflate.
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、输入地址"><span class="nav-number">1.</span> <span class="nav-text">1、输入地址</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、浏览器查找域名的-IP-地址"><span class="nav-number">2.</span> <span class="nav-text">2、浏览器查找域名的 IP 地址</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#—知识扩展—"><span class="nav-number">2.1.</span> <span class="nav-text">—知识扩展—</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-什么是DNS？"><span class="nav-number">2.2.</span> <span class="nav-text">1)什么是DNS？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-DNS负载均衡"><span class="nav-number">2.3.</span> <span class="nav-text">4)DNS负载均衡</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3、浏览器向-web-服务器发送一个-HTTP-请求"><span class="nav-number">3.</span> <span class="nav-text">3、浏览器向 web 服务器发送一个 HTTP 请求</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#—知识扩展—-1"><span class="nav-number">3.1.</span> <span class="nav-text">—知识扩展—</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-TCP三次握手"><span class="nav-number">3.2.</span> <span class="nav-text">1)TCP三次握手</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2）为什么需要三次握手？"><span class="nav-number">3.3.</span> <span class="nav-text">2）为什么需要三次握手？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3）TCP四次挥手"><span class="nav-number">3.4.</span> <span class="nav-text">3）TCP四次挥手</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4）为什么建立连接是三次握手，而关闭连接却是四次挥手呢？"><span class="nav-number">3.5.</span> <span class="nav-text">4）为什么建立连接是三次握手，而关闭连接却是四次挥手呢？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4、服务器的永久重定向响应"><span class="nav-number">4.</span> <span class="nav-text">4、服务器的永久重定向响应</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#—知识扩展—-2"><span class="nav-number">4.1.</span> <span class="nav-text">—知识扩展—</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1）301和302的区别。"><span class="nav-number">4.2.</span> <span class="nav-text">1）301和302的区别。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2）重定向原因："><span class="nav-number">4.3.</span> <span class="nav-text">2）重定向原因：　　</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3）什么时候进行301或者302跳转呢？"><span class="nav-number">4.4.</span> <span class="nav-text">3）什么时候进行301或者302跳转呢？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5、浏览器跟踪重定向地址"><span class="nav-number">5.</span> <span class="nav-text">5、浏览器跟踪重定向地址</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6、服务器处理请求"><span class="nav-number">6.</span> <span class="nav-text">6、服务器处理请求</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#—知识扩展—-3"><span class="nav-number">6.1.</span> <span class="nav-text">—知识扩展—</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是反向代理？"><span class="nav-number">6.2.</span> <span class="nav-text">什么是反向代理？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7、服务器返回一个-HTTP-响应"><span class="nav-number">7.</span> <span class="nav-text">7、服务器返回一个 HTTP 响应　</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#状态行："><span class="nav-number">7.1.</span> <span class="nav-text">状态行：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#响应头："><span class="nav-number">7.1.1.</span> <span class="nav-text">响应头：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#响应正文"><span class="nav-number">7.1.2.</span> <span class="nav-text">响应正文</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8、浏览器显示-HTML"><span class="nav-number">8.</span> <span class="nav-text">8、浏览器显示 HTML</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9、浏览器发送请求获取嵌入在-HTML-中的资源（如图片、音频、视频、CSS、JS等等）"><span class="nav-number">9.</span> <span class="nav-text">9、浏览器发送请求获取嵌入在 HTML 中的资源（如图片、音频、视频、CSS、JS等等）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Little-skills-writing-Markdown"><span class="nav-number">9.0.1.</span> <span class="nav-text">Little skills writing Markdown:</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、输入地址"><span class="nav-number">1.</span> <span class="nav-text">1、输入地址</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、浏览器查找域名的-IP-地址"><span class="nav-number">2.</span> <span class="nav-text">2、浏览器查找域名的 IP 地址</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#—知识扩展—"><span class="nav-number">2.1.</span> <span class="nav-text">—知识扩展—</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-什么是DNS？"><span class="nav-number">2.2.</span> <span class="nav-text">1)什么是DNS？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-DNS负载均衡"><span class="nav-number">2.3.</span> <span class="nav-text">2)DNS负载均衡</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3、浏览器向-web-服务器发送一个-HTTP-请求"><span class="nav-number">3.</span> <span class="nav-text">3、浏览器向 web 服务器发送一个 HTTP 请求</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#—知识扩展—-1"><span class="nav-number">3.1.</span> <span class="nav-text">—知识扩展—</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-TCP三次握手"><span class="nav-number">3.2.</span> <span class="nav-text">1)TCP三次握手</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2）为什么需要三次握手？"><span class="nav-number">3.3.</span> <span class="nav-text">2）为什么需要三次握手？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3）TCP四次挥手"><span class="nav-number">3.4.</span> <span class="nav-text">3）TCP四次挥手</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4）为什么建立连接是三次握手，而关闭连接却是四次挥手呢？"><span class="nav-number">3.5.</span> <span class="nav-text">4）为什么建立连接是三次握手，而关闭连接却是四次挥手呢？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4、服务器的永久重定向响应"><span class="nav-number">4.</span> <span class="nav-text">4、服务器的永久重定向响应</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#—知识扩展—-2"><span class="nav-number">4.1.</span> <span class="nav-text">—知识扩展—</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1）301和302的区别。"><span class="nav-number">4.2.</span> <span class="nav-text">1）301和302的区别。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2）重定向原因："><span class="nav-number">4.3.</span> <span class="nav-text">2）重定向原因：　　</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3）什么时候进行301或者302跳转呢？"><span class="nav-number">4.4.</span> <span class="nav-text">3）什么时候进行301或者302跳转呢？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5、浏览器跟踪重定向地址"><span class="nav-number">5.</span> <span class="nav-text">5、浏览器跟踪重定向地址</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6、服务器处理请求"><span class="nav-number">6.</span> <span class="nav-text">6、服务器处理请求</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#—知识扩展—-3"><span class="nav-number">6.1.</span> <span class="nav-text">—知识扩展—</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是反向代理？"><span class="nav-number">6.2.</span> <span class="nav-text">什么是反向代理？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7、服务器返回一个-HTTP-响应"><span class="nav-number">7.</span> <span class="nav-text">7、服务器返回一个 HTTP 响应　</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#状态行："><span class="nav-number">7.1.</span> <span class="nav-text">状态行：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#响应头："><span class="nav-number">7.1.1.</span> <span class="nav-text">响应头：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#响应正文"><span class="nav-number">7.1.2.</span> <span class="nav-text">响应正文</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8、浏览器显示-HTML"><span class="nav-number">8.</span> <span class="nav-text">8、浏览器显示 HTML</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9、浏览器发送请求获取嵌入在-HTML-中的资源（如图片、音频、视频、CSS、JS等等）"><span class="nav-number">9.</span> <span class="nav-text">9、浏览器发送请求获取嵌入在 HTML 中的资源（如图片、音频、视频、CSS、JS等等）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Little-skills-writing-Markdown"><span class="nav-number">9.0.1.</span> <span class="nav-text">Little skills writing Markdown:</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -671,7 +675,7 @@ Accept-Encoding:gzip,deflate.
 
 
 <div class="powered-by">
-  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+  Erstellt mit  <a class="theme-link" href="https://hexo.io">Hexo</a>
 </div>
 
 <div class="theme-info">
